@@ -140,6 +140,13 @@ src/            Python memory engine
 python -m wisdom_agentdb
 ```
 
+## Build TypeScript workspace
+
+```bash
+pnpm install
+pnpm build:ts
+```
+
 ## Run with Docker
 
 ```bash
@@ -149,9 +156,9 @@ docker compose up --build
 ## CLI
 
 ```bash
-node apps/cli/bin/wisdom.js health
-node apps/cli/bin/wisdom.js add "remember AGENTS.md is project local"
-node apps/cli/bin/wisdom.js search "project rules"
+node apps/cli/dist/wisdom.js health
+node apps/cli/dist/wisdom.js add "remember AGENTS.md is project local"
+node apps/cli/dist/wisdom.js search "project rules"
 ```
 
 ## Roadmap

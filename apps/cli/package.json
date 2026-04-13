@@ -4,11 +4,13 @@
   "private": true,
   "type": "module",
   "bin": {
-    "wisdom": "./bin/wisdom.js"
+    "wisdom": "./dist/wisdom.js"
   },
+  "main": "./dist/wisdom.js",
   "scripts": {
-    "dev": "node ./bin/wisdom.js",
-    "lint": "node --check ./bin/wisdom.js",
-    "test": "node --check ./bin/wisdom.js"
+    "build": "tsc -p tsconfig.json",
+    "dev": "pnpm build && node ./dist/wisdom.js",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "tsc -p tsconfig.json --noEmit"
   }
 }

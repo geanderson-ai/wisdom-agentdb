@@ -12,3 +12,6 @@ const health = await client.health();
 console.log(health);
 ```
 
+## Build
+
+Run `pnpm build:ts` from the repo root to generate `dist/index.js` and `dist/index.d.ts`.

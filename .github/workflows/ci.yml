@@ -25,24 +25,23 @@ jobs:
       - name: Bytecode compile
         run: python -m compileall src tests
 
-  docs:
+  typescript:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build TypeScript workspace
+        run: pnpm build:ts
       - name: Validate repository files
         run: |
           test -f README.md
           test -f architecture/openapi.yaml
           test -f architecture/event-schema.json
-
-  js:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-      - name: Syntax check
-        run: |
-          node --check apps/cli/bin/wisdom.js
-          node --check packages/sdk/src/index.js

@@ -1,7 +1,18 @@
 #!/usr/bin/env node
 const baseUrl = process.env.WISDOM_AGENTDB_URL ?? "http://127.0.0.1:8000";
 
-function usage() {
+type FlagMap = Record<string, string | boolean>;
+
+interface ParsedArgs {
+  positional: string[];
+  flags: FlagMap;
+}
+
+interface ApiErrorPayload {
+  detail?: unknown;
+}
+
+function usage(): void {
   console.log(`Wisdom AgentDB CLI
 
 Usage:
@@ -14,29 +25,31 @@ Environment:
 `);
 }
 
-function parseArgs(argv) {
-  const positional = [];
-  const flags = {};
-  for (let i = 0; i < argv.length; i += 1) {
-    const token = argv[i];
+function parseArgs(argv: string[]): ParsedArgs {
+  const positional: string[] = [];
+  const flags: FlagMap = {};
+
+  for (let index = 0; index < argv.length; index += 1) {
+    const token = argv[index];
     if (!token.startsWith("--")) {
       positional.push(token);
       continue;
     }
 
     const key = token.slice(2);
-    const next = argv[i + 1];
+    const next = argv[index + 1];
     if (next && !next.startsWith("--")) {
       flags[key] = next;
-      i += 1;
+      index += 1;
     } else {
       flags[key] = true;
     }
   }
+
   return { positional, flags };
 }
 
-async function request(path, options = {}) {
+async function request(path: string, options: RequestInit = {}): Promise<unknown> {
   const response = await fetch(`${baseUrl}${path}`, {
     headers: { "content-type": "application/json" },
     ...options,
@@ -44,19 +57,22 @@ async function request(path, options = {}) {
 
   const contentType = response.headers.get("content-type") ?? "";
   const body = contentType.includes("application/json")
-    ? await response.json()
+    ? (await response.json()) as unknown
     : await response.text();
 
   if (!response.ok) {
+    const errorPayload = body as ApiErrorPayload | string;
     throw new Error(
-      typeof body === "string" ? body : JSON.stringify(body, null, 2),
+      typeof errorPayload === "string"
+        ? errorPayload
+        : JSON.stringify(errorPayload.detail ?? errorPayload, null, 2),
     );
   }
 
   return body;
 }
 
-async function main() {
+async function main(): Promise<void> {
   const [command, ...rest] = process.argv.slice(2);
   if (!command || command === "--help" || command === "-h") {
     usage();
@@ -76,7 +92,7 @@ async function main() {
     if (command === "add") {
       const text = positional.join(" ");
       if (!text) {
-        throw new Error("Missing text. Example: wisdom add \"remember X\"");
+        throw new Error('Missing text. Example: wisdom add "remember X"');
       }
 
       const metadata = flags.metadata ? JSON.parse(String(flags.metadata)) : {};
@@ -105,7 +121,7 @@ async function main() {
     if (command === "search") {
       const query = positional.join(" ");
       if (!query) {
-        throw new Error("Missing query. Example: wisdom search \"project rules\"");
+        throw new Error('Missing query. Example: wisdom search "project rules"');
       }
 
       const data = await request("/v1/search", {
@@ -127,5 +143,5 @@ async function main() {
   }
 }
 
-main();
+void main();
 

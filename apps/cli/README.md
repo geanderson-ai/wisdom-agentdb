@@ -4,7 +4,7 @@ Minimal command-line interface for the memory API.
 
 ## Commands
 
-- `wisdom health`
-- `wisdom add "<text>"`
-- `wisdom search "<query>"`
-
+- Build first: `pnpm build:ts`
+- `node dist/wisdom.js health`
+- `node dist/wisdom.js add "<text>"`
+- `node dist/wisdom.js search "<query>"`

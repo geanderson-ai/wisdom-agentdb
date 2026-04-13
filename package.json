@@ -15,8 +15,13 @@
   "scripts": {
     "lint:py": "ruff check src tests",
     "format:py": "ruff format src tests",
-    "lint:js": "node --check apps/cli/bin/wisdom.js && node --check packages/sdk/src/index.js",
-    "build": "echo \"Build workspace packages later\"",
-    "check": "pnpm lint:py && pnpm lint:js"
+    "build:ts": "pnpm exec tsc -b apps/cli packages/sdk",
+    "check:ts": "pnpm exec tsc -b apps/cli packages/sdk",
+    "build": "pnpm build:ts",
+    "check": "pnpm lint:py && pnpm check:ts"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "typescript": "^6.0.2"
   }
 }

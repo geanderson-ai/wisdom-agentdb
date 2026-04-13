@@ -15,4 +15,5 @@
 - `openapi.yaml` - initial API contract
 - `event-schema.json` - initial JSON Schema for memory events
 - `memory-engine-flow.mmd` - six-step memory pipeline
+- `memory-engine-flow.svg` - rendered flow diagram
 - `ui-spec.md` - first interface design contract

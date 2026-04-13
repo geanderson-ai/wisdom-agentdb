@@ -20,7 +20,11 @@ def create_app() -> FastAPI:
     def health() -> dict[str, str]:
         return {"status": "ok"}
 
-    @app.post("/v1/memory", response_model=MemoryCreateResponse, status_code=status.HTTP_202_ACCEPTED)
+    @app.post(
+        "/v1/memory",
+        response_model=MemoryCreateResponse,
+        status_code=status.HTTP_202_ACCEPTED,
+    )
     def create_memory(payload: MemoryCreateRequest) -> MemoryCreateResponse:
         record = store.add(**payload.model_dump())
         return MemoryCreateResponse(memory_id=record.memory_id)
@@ -59,4 +63,3 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
-

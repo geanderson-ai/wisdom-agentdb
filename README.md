@@ -121,6 +121,9 @@ flowchart LR
 ```text
 architecture/   architecture docs and contracts
 docs/           research and benchmark analysis
+apps/           TypeScript CLI surface
+packages/       TypeScript SDK surface
+src/            Python memory engine
 ```
 
 ## Documentation
@@ -130,6 +133,26 @@ docs/           research and benchmark analysis
 - [Architecture overview](docs/architecture-overview.md)
 - [Benchmark notes](docs/benchmark-notes.md)
 - [Decision log](docs/decision-log.md)
+
+## Run locally
+
+```bash
+python -m wisdom_agentdb
+```
+
+## Run with Docker
+
+```bash
+docker compose up --build
+```
+
+## CLI
+
+```bash
+node apps/cli/bin/wisdom.js health
+node apps/cli/bin/wisdom.js add "remember AGENTS.md is project local"
+node apps/cli/bin/wisdom.js search "project rules"
+```
 
 ## Roadmap
 

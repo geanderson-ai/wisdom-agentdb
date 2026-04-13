@@ -1,0 +1,87 @@
+services:
+  api:
+    build: .
+    command: python -m wisdom_agentdb
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://wisdom:wisdom@postgres:5432/wisdom
+      REDIS_URL: redis://redis:6379/0
+      VECTOR_DB_URL: http://qdrant:6333
+      GRAPH_DB_URL: bolt://neo4j:7687
+      OBJECT_STORE_URL: http://minio:9000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      qdrant:
+        condition: service_started
+      neo4j:
+        condition: service_started
+      minio:
+        condition: service_started
+
+  worker:
+    build: .
+    command: python -m wisdom_agentdb.worker
+    environment:
+      DATABASE_URL: postgresql://wisdom:wisdom@postgres:5432/wisdom
+      REDIS_URL: redis://redis:6379/0
+      VECTOR_DB_URL: http://qdrant:6333
+      GRAPH_DB_URL: bolt://neo4j:7687
+      OBJECT_STORE_URL: http://minio:9000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      qdrant:
+        condition: service_started
+      neo4j:
+        condition: service_started
+      minio:
+        condition: service_started
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: wisdom
+      POSTGRES_PASSWORD: wisdom
+      POSTGRES_DB: wisdom
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wisdom -d wisdom"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  qdrant:
+    image: qdrant/qdrant:v1.12.4
+    ports:
+      - "6333:6333"
+
+  neo4j:
+    image: neo4j:5.22-community
+    environment:
+      NEO4J_AUTH: neo4j/wisdomagentdb
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+
+  minio:
+    image: minio/minio:RELEASE.2024-10-02T17-50-07Z
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: wisdom
+      MINIO_ROOT_PASSWORD: wisdomagentdb
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+

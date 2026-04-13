@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "node ./bin/wisdom.js",
-    "test": "echo \"Add CLI tests later\""
+    "lint": "node --check ./bin/wisdom.js",
+    "test": "node --check ./bin/wisdom.js"
   }
 }
-

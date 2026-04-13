@@ -13,8 +13,10 @@
   },
   "packageManager": "pnpm@10.0.0",
   "scripts": {
-    "lint": "echo \"Add linting when the TypeScript workspace lands\"",
-    "test": "echo \"Add tests when the TypeScript workspace lands\"",
-    "build": "echo \"Build workspace packages later\""
+    "lint:py": "ruff check src tests",
+    "format:py": "ruff format src tests",
+    "lint:js": "node --check apps/cli/bin/wisdom.js && node --check packages/sdk/src/index.js",
+    "build": "echo \"Build workspace packages later\"",
+    "check": "pnpm lint:py && pnpm lint:js"
   }
 }

@@ -45,4 +45,3 @@ class MemoryStore:
 
         scored.sort(key=lambda pair: pair[0], reverse=True)
         return [item for _, item in scored[:top_k]]
-

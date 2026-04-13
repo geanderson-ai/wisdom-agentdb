@@ -7,8 +7,8 @@
     ".": "./src/index.js"
   },
   "scripts": {
-    "build": "echo \"Add SDK build later\"",
-    "test": "echo \"Add SDK tests later\""
+    "build": "node --check ./src/index.js",
+    "lint": "node --check ./src/index.js",
+    "test": "node --check ./src/index.js"
   }
 }
-

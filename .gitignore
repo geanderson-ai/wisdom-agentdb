@@ -9,6 +9,7 @@ Thumbs.db
 # Python
 __pycache__/
 *.pyc
+*.egg-info/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
@@ -32,4 +33,3 @@ coverage/
 # Local docs/render output
 *.svg
 *.png
-

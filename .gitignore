@@ -1,0 +1,35 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Node / TypeScript
+node_modules/
+dist/
+build/
+coverage/
+.turbo/
+
+# Env
+.env
+.env.*
+
+# Logs
+*.log
+
+# Local docs/render output
+*.svg
+*.png
+

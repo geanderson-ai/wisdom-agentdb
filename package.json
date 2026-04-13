@@ -4,13 +4,17 @@
   "private": true,
   "description": "TypeScript clients and surfaces for Wisdom AgentDB.",
   "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "engines": {
     "node": ">=20"
   },
   "packageManager": "pnpm@10.0.0",
   "scripts": {
     "lint": "echo \"Add linting when the TypeScript workspace lands\"",
-    "test": "echo \"Add tests when the TypeScript workspace lands\""
+    "test": "echo \"Add tests when the TypeScript workspace lands\"",
+    "build": "echo \"Build workspace packages later\""
   }
 }
-

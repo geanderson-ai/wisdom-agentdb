@@ -1,0 +1,14 @@
+{
+  "name": "@wisdom-agentdb/cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "wisdom": "./bin/wisdom.js"
+  },
+  "scripts": {
+    "dev": "node ./bin/wisdom.js",
+    "test": "echo \"Add CLI tests later\""
+  }
+}
+

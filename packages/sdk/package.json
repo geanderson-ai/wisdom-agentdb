@@ -1,0 +1,14 @@
+{
+  "name": "@wisdom-agentdb/sdk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "scripts": {
+    "build": "echo \"Add SDK build later\"",
+    "test": "echo \"Add SDK tests later\""
+  }
+}
+

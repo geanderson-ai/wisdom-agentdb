@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/geanderson-ai/wisdom-agentdb/architecture/event-schema.json",
+  "title": "Wisdom Memory Event",
+  "type": "object",
+  "required": ["event_id", "event_type", "timestamp", "scope", "payload"],
+  "properties": {
+    "event_id": { "type": "string" },
+    "event_type": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "user_id": { "type": "string" },
+    "agent_id": { "type": "string" },
+    "session_id": { "type": "string" },
+    "project_id": { "type": "string" },
+    "workspace_id": { "type": "string" },
+    "source": { "type": "string" },
+    "scope": {
+      "type": "string",
+      "enum": ["session", "project", "user", "agent", "workspace"]
+    },
+    "payload": { "type": "object" },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "trace": {
+      "type": "object",
+      "properties": {
+        "source_id": { "type": "string" },
+        "citation_id": { "type": "string" }
+      }
+    }
+  }
+}
+

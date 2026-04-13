@@ -1,0 +1,142 @@
+openapi: 3.1.0
+info:
+  title: Wisdom AgentDB API
+  version: 0.1.0
+  description: Memory platform API for AI agents.
+servers:
+  - url: /v1
+paths:
+  /memory:
+    post:
+      summary: Create a memory item
+      operationId: createMemory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MemoryCreateRequest"
+      responses:
+        "202":
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MemoryCreateResponse"
+  /search:
+    post:
+      summary: Search memory
+      operationId: searchMemory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SearchRequest"
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SearchResponse"
+  /memory/{memory_id}:
+    get:
+      summary: Fetch a memory item
+      operationId: getMemory
+      parameters:
+        - name: memory_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Memory item
+    patch:
+      summary: Update a memory item
+      operationId: updateMemory
+      parameters:
+        - name: memory_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Updated
+    delete:
+      summary: Delete a memory item
+      operationId: deleteMemory
+      parameters:
+        - name: memory_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Deleted
+components:
+  schemas:
+    MemoryCreateRequest:
+      type: object
+      required: [text, scope]
+      properties:
+        text:
+          type: string
+        scope:
+          type: string
+          enum: [session, project, user, agent, workspace]
+        user_id:
+          type: string
+        agent_id:
+          type: string
+        session_id:
+          type: string
+        project_id:
+          type: string
+        workspace_id:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+    MemoryCreateResponse:
+      type: object
+      properties:
+        memory_id:
+          type: string
+        status:
+          type: string
+    SearchRequest:
+      type: object
+      required: [query]
+      properties:
+        query:
+          type: string
+        scope:
+          type: string
+        top_k:
+          type: integer
+        filters:
+          type: object
+    SearchResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              memory_id:
+                type: string
+              score:
+                type: number
+              snippet:
+                type: string
+              citations:
+                type: array
+                items:
+                  type: string
+

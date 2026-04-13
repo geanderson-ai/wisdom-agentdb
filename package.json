@@ -1,0 +1,16 @@
+{
+  "name": "wisdom-agentdb",
+  "version": "0.1.0",
+  "private": true,
+  "description": "TypeScript clients and surfaces for Wisdom AgentDB.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.0.0",
+  "scripts": {
+    "lint": "echo \"Add linting when the TypeScript workspace lands\"",
+    "test": "echo \"Add tests when the TypeScript workspace lands\""
+  }
+}
+

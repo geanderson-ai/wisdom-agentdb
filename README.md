@@ -126,6 +126,7 @@ docs/           research and benchmark analysis
 ## Documentation
 
 - [Docs index](docs/README.md)
+- [Architecture index](architecture/README.md)
 - [Architecture overview](docs/architecture-overview.md)
 - [Benchmark notes](docs/benchmark-notes.md)
 - [Decision log](docs/decision-log.md)

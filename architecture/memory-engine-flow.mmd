@@ -1,0 +1,14 @@
+flowchart LR
+    A[1. Input] --> B[2. Normalize]
+    B --> C[3. Extract]
+    C --> D[4. Store]
+    D --> E[5. Recall]
+    E --> F[6. Reinject]
+
+    A1[CLI / Web / SDK] --> A
+    B1[Validate and classify scope] --> B
+    C1[Entities, facts, relations, summaries] --> C
+    D1[Postgres + Vector DB + Graph DB + Object Store] --> D
+    E1[Scope filter + semantic search + rerank] --> E
+    F1[Return relevant context to agent] --> F
+
